@@ -1,12 +1,35 @@
-
-/* 
-
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
-
-*/
+h1{
+   color: rgb(244, 157, 157);
+   text-align: center;
+   margin-top: 20px;
+}
+.contenidoActividades{
+    justify-content: center;
+    text-align: left;
+}
+.tareaNueva{
+    border: none;
+}
+.tareasFaltantes{
+    font-size: 12px;
+    color: grey
+}
+.tareaPorHacer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-underline-position: auto;
+}
+a:link {
+    text-decoration: none;
+}
+.contenidoTarea{
+    width: 100%;
+    height: 100%;
+}
+.tareaPorHacer:hover {
+    color: hotpink !important;
+  }
+.textoTarea{
+    color: grey
+}
