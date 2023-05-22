@@ -12,7 +12,11 @@ h1{
 }
 .tareasFaltantes{
     font-size: 12px;
-    color: grey
+    color: grey;
+    border-right: solid 1px ;
+    border-left: solid 1px ;
+    border-bottom: solid 1px ;
+    border-color: grey;
 }
 .tareaPorHacer{
     display: flex;

@@ -2,10 +2,10 @@ import React, {useState} from "react";
 
 const Lista = () => {
     const [inputValue, setInputValue ] = useState("");
-	const [tarea, setTarea] = useState ([])
+	const [lista, setLista] = useState ([])
 	function handleKeyPress(e){
 		if (e.key === "Enter"){
-			setTarea(tarea.concat(inputValue))
+			setLista(lista.concat(inputValue))
 		}
 	}
 	function textoRojo(e) {
@@ -24,29 +24,28 @@ const Lista = () => {
 				<ul className="list-group">
 					<li className="list-group-item" >
 						<input 
-							onKeyPress={handleKeyPress}
+							onKeyDown={handleKeyPress}
 							type="text"  
 							onChange={e=>{setInputValue(e.target.value)}} 
 							className="form-control tareaNueva" 
-							placeholder="Ingrese aquí su tarea" 
+							placeholder="No tasks, add a task" 
 							value={inputValue} 
 						/>
 					</li>
-					{tarea.map((item, id) => 						
-							<li className="list-group-item d-flex justify-content-between align-items-start tareaPorHacer" id={id} key={id} onMouseOver={textoRojo}  onMouseOut={textoNormal}>	
-									<span className="textoTarea d-flex justify-content-start text-dark"> {item}</span> 
-									<button className="iconoEliminar d-flex justify-content-end" onClick={() => setTarea(tarea.filter((t, numeroId) => id != numeroId)
-										)}>
-										x
-									</button>		
-							</li>
+					{lista.map((item, id) => 						
+						<li className="list-group-item d-flex justify-content-between align-items-start tareaPorHacer" id={id} key={id} onMouseOver={textoRojo}  onMouseOut={textoNormal}>	
+							<span className="textoTarea d-flex justify-content-start text-dark"> {item}</span> 
+							<button className="iconoEliminar d-flex justify-content-end" onClick={() => setLista(lista.filter((t, numeroId) => id != numeroId)
+								)}>
+								x
+							</button>		
+						</li>
 					)}
-					<li className="list-group-item tareasFaltantes" >
-						{tarea.length} item left
-					</li>
+					<div className="align-items-start tareasFaltantes" >
+						{lista.length} item left
+					</div>
 				</ul>
 			</div>
-
 		</div>
 	)
 }
