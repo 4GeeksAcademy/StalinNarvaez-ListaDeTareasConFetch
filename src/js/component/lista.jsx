@@ -8,6 +8,12 @@ const Lista = () => {
 			setTarea(tarea.concat(inputValue))
 		}
 	}
+	function textoRojo(e) {
+		e.target.style.color = 'red';
+	  }
+	  function textoNormal(e) {
+		e.target.style.color = 'white';
+	  }
 ;
     return (
 		<div className="container-fluid">
@@ -26,13 +32,13 @@ const Lista = () => {
 							value={inputValue} 
 						/>
 					</li>
-					{tarea.map((item, id) => 
-							<li className="list-group-item d-flex justify-content-between align-items-start tareaPorHacer " id={id} key={id} onMouseOver={()=>{}}>						
-									<span className="textoTarea d-flex justify-content-start"> {item}</span> 
-									<span className="iconoEliminar d-flex justify-content-end" onClick={() => setTarea(tarea.filter((t, numeroId) => id != numeroId)
+					{tarea.map((item, id) => 						
+							<li className="list-group-item d-flex justify-content-between align-items-start tareaPorHacer" id={id} key={id} onMouseOver={textoRojo}  onMouseOut={textoNormal}>	
+									<span className="textoTarea d-flex justify-content-start text-dark"> {item}</span> 
+									<button className="iconoEliminar d-flex justify-content-end" onClick={() => setTarea(tarea.filter((t, numeroId) => id != numeroId)
 										)}>
 										x
-									</span>			
+									</button>		
 							</li>
 					)}
 					<li className="list-group-item tareasFaltantes" >

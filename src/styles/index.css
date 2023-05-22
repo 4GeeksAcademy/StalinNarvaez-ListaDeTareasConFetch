@@ -27,9 +27,13 @@ a:link {
     width: 100%;
     height: 100%;
 }
-.tareaPorHacer:hover {
-    color: hotpink !important;
-  }
+button{
+    color: #ff000000;
+    background-color: #ff000000;
+    border: none;
+    width: 100%;
+    height: 100%
+}
 .textoTarea{
     color: grey
 }
