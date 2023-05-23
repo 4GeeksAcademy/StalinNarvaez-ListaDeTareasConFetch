@@ -41,3 +41,13 @@ button{
 .textoTarea{
     color: grey
 }
+.traerTarea{
+    color: grey;
+    background-color: gold;
+    width: 10%;
+    height: 5%;
+}
+.eliminarTarea{   
+     width: 10%;
+    height: 5%;
+}

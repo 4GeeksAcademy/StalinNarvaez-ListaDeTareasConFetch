@@ -1,19 +1,53 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
-const Lista = () => {
+const ToDoList = () => {
     const [inputValue, setInputValue ] = useState("");
 	const [lista, setLista] = useState ([])
 	function handleKeyPress(e){
-		if (e.key === "Enter"){
-			setLista(lista.concat(inputValue))
+		if (e.key === "Enter" && inputValue.trim() !== "") {
+			agregarLista(inputValue.trim());
+			setInputValue("");
+		  }
 		}
-	}
 	function textoRojo(e) {
 		e.target.style.color = 'red';
 	  }
 	  function textoNormal(e) {
 		e.target.style.color = 'white';
-	  }
+	  };
+	  
+	  function traerTarea(){
+		fetch ('https://assets.breatheco.de/apis/fake/todos/user/StalinNarvaez')		
+		.then ( (response) => response.json())
+		.then ((data)=> setLista(data))
+	}
+	const agregarLista = (label) => {
+		const nuevaLista = [...lista, { label, done: false }];
+		setLista(nuevaLista);
+		guardarLista(nuevaLista);
+	  };
+	  const guardarLista = (lista) => {
+		fetch
+		(('https://assets.breatheco.de/apis/fake/todos/user/StalinNarvaez'), {
+		  method: "PUT",
+		  headers: {
+			"Content-Type": "application/json",
+		  },
+		  body: JSON.stringify(lista),
+		})
+		  .then((r) => r.json())
+		  .then((data) => console.log("Guardar lista:", data))
+		  .catch((error) => console.error("Error al guardar lista:", error));
+	  };
+	  const limpiarLista = () => {
+		fetch
+		(('https://assets.breatheco.de/apis/fake/todos/user/StalinNarvaez'),{ 
+			method: "PUT" })
+		  .then(() => setLista([]))
+		  .catch((error) => console.error("Error al limpiar la lista:", error));
+	  };
+
+useEffect( ()=>{traerTarea()},[]);
 ;
     return (
 		<div className="container-fluid">
@@ -34,7 +68,7 @@ const Lista = () => {
 					</li>
 					{lista.map((item, id) => 						
 						<li className="list-group-item d-flex justify-content-between align-items-start tareaPorHacer" id={id} key={id} onMouseOver={textoRojo}  onMouseOut={textoNormal}>	
-							<span className="textoTarea d-flex justify-content-start text-dark"> {item}</span> 
+							<span className="textoTarea d-flex justify-content-start text-dark"> {item.label}</span> 
 							<button className="iconoEliminar d-flex justify-content-end" onClick={() => setLista(lista.filter((t, numeroId) => id != numeroId)
 								)}>
 								x
@@ -46,7 +80,11 @@ const Lista = () => {
 					</div>
 				</ul>
 			</div>
+            <div className="d-flex justify-content-center botonesAuxiliares">
+                <button type="button" className="btn btn-info traerTarea" onClick={traerTarea}>Traer Lista</button>
+                <button type="button" className="btn btn-danger eliminarTarea" onClick={limpiarLista}>Eliminar Lista</button>
+            </div>
 		</div>
 	)
 }
-export default Lista;
+export default ToDoList;
