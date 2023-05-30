@@ -39,13 +39,21 @@ const ToDoList = () => {
 		  .then((data) => console.log("Guardar lista:", data))
 		  .catch((error) => console.error("Error al guardar lista:", error));
 	  };
-	  const limpiarLista = () => {
-		fetch
-		(('https://assets.breatheco.de/apis/fake/todos/user/StalinNarvaez'),{ 
-			method: "PUT" })
-		  .then(() => setLista([]))
-		  .catch((error) => console.error("Error al limpiar la lista:", error));
+
+	  const eliminarTarea = (id) => {
+		const  listaActualizada = lista.filter((_, i) => i !== id);
+		setLista( listaActualizada);
+		guardarLista( listaActualizada);
 	  };
+
+	  const limpiarLista = () => {
+	 	fetch
+	 	(('https://assets.breatheco.de/apis/fake/todos/user/StalinNarvaez'),{ 
+	 		method: "PUT"
+		})
+	 	  .then(() => setLista([]))
+	 	  .catch((error) => console.error("Error al limpiar la lista:", error));
+	   };
 
 useEffect( ()=>{traerTarea()},[]);
 ;
@@ -69,8 +77,7 @@ useEffect( ()=>{traerTarea()},[]);
 					{lista.map((item, id) => 						
 						<li className="list-group-item d-flex justify-content-between align-items-start tareaPorHacer" id={id} key={id} onMouseOver={textoRojo}  onMouseOut={textoNormal}>	
 							<span className="textoTarea d-flex justify-content-start text-dark"> {item.label}</span> 
-							<button className="iconoEliminar d-flex justify-content-end" onClick={() => setLista(lista.filter((t, numeroId) => id != numeroId)
-								)}>
+							<button className="iconoEliminar d-flex justify-content-end" onClick={() => eliminarTarea(id)}>
 								x
 							</button>		
 						</li>
